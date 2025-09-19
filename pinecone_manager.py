@@ -63,7 +63,7 @@ class PineconeVectorStoreManager:
             for i, d in enumerate(docs)
         ]
         namespace = docs[0]["metadata"].get("source", "default")
-        self.index.upsert(vectors=to_upsert,namespace=namespace)
+        self.index.upsert(vectors=to_upsert,namespace=NAMESPACE)
         print(f"✅ Upserted {len(to_upsert)} vectors into Pinecone")
 
     # -----------------------------
