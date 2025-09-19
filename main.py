@@ -27,9 +27,6 @@ async def handle_message(message: cl.Message):
     print(context)
     print("hello")
     prompt = f"""
-You are a helpful assistant. Use the following context to answer the user’s question. 
-If the answer is not in the context, say you don’t know.
-
 Context:
 {context}
 
@@ -38,7 +35,8 @@ Answer:
 """
     response = openai_client.chat.completions.create(
         model=LLM_MODEL_NAME,  # or gpt-4.1 / gpt-3.5-turbo
-        messages=[{"role": "system", "content": "You are a helpful assistant that only answers based on company policies. If the answer is not found in the context, politely say you don’t know."},{"role": "user", "content": prompt}],
+        messages=[{"role": "system", "content": "You are a helpful assistant that only answers based on company policies. If the answer is not found in the context, politely say you don’t know."},
+                  {"role": "user", "content": prompt}],
     )
     answer = response.choices[0].message.content
 
