@@ -1,0 +1,30 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+*.log
+
+# --- Virtual environments ---
+.venv/
+venv/
+
+# --- Environment variables ---
+.env
+
+# --- company confidential document ---
+company_policies/Mergestack_Employment Policy Handbook_2025.pdf
+
+# --- Chainlit cache ---
+.chainlit/
+
+# --- VSCode / IDE settings (optional) ---
+.vscode/
+.idea/
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db
+
