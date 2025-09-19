@@ -24,8 +24,7 @@ async def handle_message(message: cl.Message):
 
     # Step 2: Inline OpenAI call with retrieved context
     context = "\n\n".join([doc["content"] for doc in retrieved_docs])
-    print(context)
-    print("hello")
+  
     prompt = f"""
 Context:
 {context}
