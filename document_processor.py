@@ -3,9 +3,10 @@ from pathlib import Path
 from typing import List
 import fitz  # PyMuPDF
 import docx
-
+from pinecone_manager import PineconeVectorStoreManager 
 
 class DocumentProcessor:
+    pinecone_manager = PineconeVectorStoreManager()
     def __init__(self, docs_dir: str = "./company_policies"):
         self.docs_dir = docs_dir
     
@@ -107,4 +108,8 @@ class DocumentProcessor:
                     "metadata": {"source": doc["source"], "chunk": i}
                 })
         return chunked_docs
-   
+    def process_and_upsert(self, file_path: str):
+        """Load, process, and upsert a single document to Pinecone."""
+        docs = self.load_single_document(file_path)
+        chunked_docs = self.prepare_documents(docs)
+        self.pinecone_manager.upsert_documents(chunked_docs)

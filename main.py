@@ -18,12 +18,15 @@ chat_history = []
 @cl.on_chat_start
 async def start_chat():
     chat_history.clear()  # reset history on new chat
-    await cl.Message(content="🤖 Hi! Ask me anything about company HR policies.").send()
+    await cl.Message(content="Hi! Ask me anything about Mergestack policies.").send()
 
 
 @cl.on_message
 async def handle_message(message: cl.Message):
     query = message.content
+
+    # Show a temporary "processing" message (with pulsating dots in UI)
+    processing_msg = await cl.Message(content="⏳ Processing your request...").send()
 
     # Step 1: Retrieve docs from Pinecone
     retrieved_docs = VECTOR_STORE_MANAGER.similarity_search(query, top_k=40)
@@ -67,5 +70,6 @@ async def handle_message(message: cl.Message):
     # Save assistant reply into history
     chat_history.append({"role": "assistant", "content": answer})
 
-    # Step 5: Send answer back to UI
-    await cl.Message(content=answer).send()
+    # Step 5: Update the "processing..." message with final answer
+    processing_msg.content = answer
+    await processing_msg.update()

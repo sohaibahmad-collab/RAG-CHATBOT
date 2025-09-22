@@ -1,7 +1,5 @@
 import sys
 from document_processor import DocumentProcessor
-from pinecone_manager import PineconeVectorStoreManager
-
 
 
 if __name__ == "__main__":
@@ -13,15 +11,8 @@ if __name__ == "__main__":
 
     # Initialize helpers
     processor = DocumentProcessor()
-    pinecone_manager = PineconeVectorStoreManager()
-
-    print(f"📂 Loading document: {file_path}")
-    docs = processor.load_single_document(file_path)
-
-    print("✂️ Splitting into chunks...")
-    chunked_docs = processor.prepare_documents(docs)
-
+    
     print("📤 Upserting into Pinecone...")
-    pinecone_manager.upsert_documents(chunked_docs)
+    processor.process_and_upsert(file_path)
 
     print("✅ Done!")
